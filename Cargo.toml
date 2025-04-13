@@ -1,0 +1,9 @@
+[package]
+name = "polaris_fsw"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+altai-rs = { path = "../altai-rs" }
+ndarray = "0.16.1"
+polaris_log = { path = "../polaris_log" }
