@@ -1,10 +1,10 @@
 use crate::{estimation::types::EstimationBus, reference::types::ReferenceBus};
 
-#[derive(Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct ControlBus {}
 
 impl ControlBus {
-    pub fn process(curr_est: &EstimationBus, curr_ref: &ReferenceBus) -> Self {
+    pub fn process(_curr_est: &EstimationBus, _curr_ref: &ReferenceBus) -> Self {
         Self {}
     }
 }

@@ -1,7 +1,7 @@
-use crate::{estimation::types::EstimationBus, sensors::startracker};
+use crate::estimation::types::EstimationBus;
 use altai_rs::meta::types::Generic1D;
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub struct RawSensorBus {}
 
 impl Default for RawSensorBus {
@@ -33,11 +33,11 @@ pub trait Sensor {
     fn hardware_subtest(&self) -> u16;
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct SensorBus {}
 
 impl SensorBus {
-    pub fn process(raw_sensor_data: &RawSensorBus, prev_est: &EstimationBus) -> Self {
+    pub fn process(_raw_sensor_data: &RawSensorBus, _prev_est: &EstimationBus) -> Self {
         Self {}
     }
 }

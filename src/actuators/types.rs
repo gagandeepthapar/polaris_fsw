@@ -1,10 +1,10 @@
 use crate::control::types::ControlBus;
 
-#[derive(Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct ActuatorBus {}
 
 impl ActuatorBus {
-    pub fn process(curr_ctrl: &ControlBus) -> Self {
+    pub fn process(_curr_ctrl: &ControlBus) -> Self {
         Self {}
     }
 }

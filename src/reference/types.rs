@@ -2,11 +2,11 @@ use altai_rs::meta::types::Generic1D;
 
 use crate::estimation::types::EstimationBus;
 
-#[derive(Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct ReferenceBus {}
 
 impl ReferenceBus {
-    pub fn process(curr_est: &EstimationBus, prev_ref: &ReferenceBus) -> Self {
+    pub fn process(_curr_est: &EstimationBus, _prev_ref: &ReferenceBus) -> Self {
         Self {}
     }
 }
