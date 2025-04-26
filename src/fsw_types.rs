@@ -28,3 +28,41 @@ impl Default for GNCState {
         }
     }
 }
+
+pub trait Param {}
+
+#[derive(Clone, Default, Debug)]
+pub struct ParamBus {
+    acs_actuators: ActuatorArchitecture,
+    acs_control: ControlArchitecture,
+    acs_estimation: EstimationArchitecture,
+    acs_reference: ReferenceArchitecture,
+    acs_sensors: SensorArchitecture,
+    acs_multibody: MultibodyArchitecture,
+}
+
+#[derive(Clone, Default, Debug)]
+pub struct ActuatorArchitecture {}
+impl Param for ActuatorArchitecture {}
+
+#[derive(Clone, Default, Debug)]
+pub struct ControlArchitecture {}
+impl Param for ControlArchitecture {}
+
+#[derive(Clone, Default, Debug)]
+pub struct EstimationArchitecture {}
+impl Param for EstimationBus {}
+
+#[derive(Clone, Default, Debug)]
+pub struct ReferenceArchitecture {}
+impl Param for ReferenceArchitecture {}
+
+#[derive(Clone, Default, Debug)]
+pub struct SensorArchitecture {}
+impl Param for SensorArchitecture {}
+
+#[derive(Clone, Default, Debug)]
+pub struct MultibodyArchitecture {
+    j_multibody: Vector3,
+}
+impl Param for MultibodyArchitecture {}
