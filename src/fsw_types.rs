@@ -1,3 +1,5 @@
+use altai_rs::meta::types::Vector3;
+
 use crate::{
     actuators::types::ActuatorBus,
     control::types::ControlBus,
@@ -6,7 +8,7 @@ use crate::{
     sensors::types::{RawSensorBus, SensorBus},
 };
 
-#[derive(Clone)]
+#[derive(Clone, Debug, Default)]
 pub struct GNCState {
     pub raw_sensor_bus: RawSensorBus,
     pub tlm_sensor_bus: SensorBus,
@@ -15,30 +17,36 @@ pub struct GNCState {
     pub control_bus: ControlBus,
     pub actuator_bus: ActuatorBus,
 }
-
-impl Default for GNCState {
-    fn default() -> Self {
-        Self {
-            raw_sensor_bus: RawSensorBus {},
-            tlm_sensor_bus: SensorBus {},
-            estimation_bus: EstimationBus {},
-            reference_bus: ReferenceBus {},
-            control_bus: ControlBus {},
-            actuator_bus: ActuatorBus {},
-        }
-    }
-}
-
 pub trait Param {}
 
 #[derive(Clone, Default, Debug)]
 pub struct ParamBus {
-    acs_actuators: ActuatorArchitecture,
-    acs_control: ControlArchitecture,
-    acs_estimation: EstimationArchitecture,
-    acs_reference: ReferenceArchitecture,
-    acs_sensors: SensorArchitecture,
-    acs_multibody: MultibodyArchitecture,
+    pub acs_sensors: SensorArchitecture,
+    pub acs_estimation: EstimationArchitecture,
+    pub acs_reference: ReferenceArchitecture,
+    pub acs_control: ControlArchitecture,
+    pub acs_actuators: ActuatorArchitecture,
+
+    pub acs_multibody: MultibodyArchitecture,
+}
+impl ParamBus {
+    pub fn initialize(
+        acs_sensors: SensorArchitecture,
+        acs_estimation: EstimationArchitecture,
+        acs_reference: ReferenceArchitecture,
+        acs_control: ControlArchitecture,
+        acs_actuators: ActuatorArchitecture,
+        acs_multibody: MultibodyArchitecture,
+    ) -> Self {
+        Self {
+            acs_sensors,
+            acs_estimation,
+            acs_reference,
+            acs_control,
+            acs_actuators,
+            acs_multibody,
+        }
+    }
 }
 
 #[derive(Clone, Default, Debug)]
@@ -51,7 +59,7 @@ impl Param for ControlArchitecture {}
 
 #[derive(Clone, Default, Debug)]
 pub struct EstimationArchitecture {}
-impl Param for EstimationBus {}
+impl Param for EstimationArchitecture {}
 
 #[derive(Clone, Default, Debug)]
 pub struct ReferenceArchitecture {}
@@ -64,5 +72,10 @@ impl Param for SensorArchitecture {}
 #[derive(Clone, Default, Debug)]
 pub struct MultibodyArchitecture {
     j_multibody: Vector3,
+}
+impl MultibodyArchitecture {
+    pub fn initialize(j_multibody: Vector3) -> Self {
+        Self { j_multibody }
+    }
 }
 impl Param for MultibodyArchitecture {}
