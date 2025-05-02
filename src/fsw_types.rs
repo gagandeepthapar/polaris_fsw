@@ -1,4 +1,4 @@
-use altai_rs::meta::types::Vector3;
+use altai_rs::types::{Generic2D, Quaternion4};
 
 use crate::{
     actuators::types::ActuatorBus,
@@ -66,16 +66,21 @@ pub struct ReferenceArchitecture {}
 impl Param for ReferenceArchitecture {}
 
 #[derive(Clone, Default, Debug)]
-pub struct SensorArchitecture {}
+pub struct SensorArchitecture {
+    pub q_sc_imu: Quaternion4,
+    pub q_sc_sta: Quaternion4,
+}
 impl Param for SensorArchitecture {}
 
 #[derive(Clone, Default, Debug)]
 pub struct MultibodyArchitecture {
-    j_multibody: Vector3,
+    pub j_multibody: Generic2D,
 }
 impl MultibodyArchitecture {
-    pub fn initialize(j_multibody: Vector3) -> Self {
-        Self { j_multibody }
+    pub fn initialize(j_multibody: &Generic2D) -> Self {
+        Self {
+            j_multibody: j_multibody.to_owned(),
+        }
     }
 }
 impl Param for MultibodyArchitecture {}
